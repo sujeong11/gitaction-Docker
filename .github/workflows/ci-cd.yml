@@ -37,6 +37,6 @@ jobs:
         key: ${{ secrets.AWS_EC2_KEY }}
         script: |
           sudo docker pull ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_IMAGENAME }}
-          sudo docker stop $(sudo docker ps -q)
+          sudo docker stop $(sudo docker ps -q) 2>/dev/null || true
           sudo docker run --rm -d -p 80:8080 --name ${{ secrets.DOCKER_IMAGENAME }} ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_IMAGENAME }}
           sudo docker system prune -f
